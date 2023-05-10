@@ -1,5 +1,6 @@
 package com.lukeman.mySpringBootCrudApi.Controllers;
 
+import com.lukeman.mySpringBootCrudApi.Config.BusinessException;
 import com.lukeman.mySpringBootCrudApi.Models.Task;
 import com.lukeman.mySpringBootCrudApi.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,35 +21,47 @@ public class TaskController {
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getAllTasks() {
 
-        List<Task> allTasks = taskService.getAllTasks();
+            List<Task> allTasks = taskService.getAllTasks();
 
-        return new ResponseEntity<List<Task>>(allTasks, HttpStatus.OK);
+            return new ResponseEntity<List<Task>>(allTasks, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> getTaskById(@PathVariable("id") int id) {
+    public ResponseEntity<?> getTaskById(@PathVariable("id") int id) {
 
-        Task task = taskService.getTaskById(id);
+        try {
+            Task task = taskService.getTaskById(id);
 
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
+            return new ResponseEntity<Task>(task, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<Task> saveTask(@RequestBody Task task){
+    public ResponseEntity<?> saveTask(@RequestBody Task task){
 
-       Task savedTask = taskService.saveTask(task);
-
-      return new ResponseEntity<Task>(savedTask, HttpStatus.ACCEPTED);
+        try {
+            Task savedTask = taskService.saveTask(task);
+            return new ResponseEntity<Task>(savedTask, HttpStatus.ACCEPTED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ResponseEntity<Task> updateTask(@RequestBody Task task){
+    public ResponseEntity<?> updateTask(@RequestBody Task task){
 
-        Task updatedTask = taskService.saveTask(task);
+        try {
+            Task updatedTask = taskService.saveTask(task);
 
-        return new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Task>(updatedTask, HttpStatus.ACCEPTED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @RequestMapping(value = "/tasks/{id}/delete", method = RequestMethod.DELETE)
