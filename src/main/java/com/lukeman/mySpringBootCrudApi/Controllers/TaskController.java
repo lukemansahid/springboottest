@@ -1,6 +1,5 @@
 package com.lukeman.mySpringBootCrudApi.Controllers;
 
-import com.lukeman.mySpringBootCrudApi.Config.BusinessException;
 import com.lukeman.mySpringBootCrudApi.Models.Task;
 import com.lukeman.mySpringBootCrudApi.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
