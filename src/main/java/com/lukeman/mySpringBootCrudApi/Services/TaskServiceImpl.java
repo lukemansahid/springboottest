@@ -16,6 +16,8 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+
+    // == Method to get all tasks from DB. ==
     @Override
     public List<Task> getAllTasks() {
         List<Task> taskList = null;
@@ -31,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
         return taskList;
     }
 
+    // == Method to get a task by ID from DB. ==
     @Override
     public Task getTaskById(int id) {
         try {
@@ -41,7 +44,7 @@ public class TaskServiceImpl implements TaskService {
 
     }
 
-    // == Method to save a Task ==
+    // == Method to save a Task. ==
     @Override
     public Task saveTask(Task task) {
 
@@ -58,6 +61,8 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+
+    // == Method to delete a task By ID from DB. ==
     @Override
     public void deleteTaskById(int id) {
         try {
